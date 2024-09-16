@@ -1,0 +1,1 @@
+# hide-paid-prime-content
