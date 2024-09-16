@@ -20,9 +20,7 @@
 
     // Function to hide list items with paid options
     function hidePaidListItems() {
-        // Select all list items
         document.querySelectorAll('li').forEach(li => {
-            // Check if the list item contains the specific SVG structure for paid options
             const hasPaidIcon = li.querySelector('article > section > div > div > div > svg');
             if (hasPaidIcon) {
                 li.style.display = 'none'; // Hide the list item
@@ -30,15 +28,51 @@
         });
     }
 
-    // Run the function initially on page load
-    hidePaidListItems();
+    // Function to hide specific categories
+    function hideSpecificCategories() {
+        const categoryNames = [
+            'Home Premiere movies',
+            'New release movies – Sponsored',
+            'Top 10 purchases in the US'
+        ];
+
+        document.querySelectorAll('section, div').forEach(el => {
+            const titleElement = el.querySelector('h2, .category-title, .title');
+            if (titleElement && categoryNames.includes(titleElement.innerText.trim())) {
+                el.style.display = 'none'; // Hide the entire category section
+            }
+        });
+    }
+
+    // Function to remove empty categories
+    function removeEmptyCategories() {
+        document.querySelectorAll('section, div').forEach(el => {
+            const listItems = el.querySelectorAll('li');
+            if (listItems.length > 0) {
+                const allHidden = Array.from(listItems).every(li => li.style.display === 'none');
+                if (allHidden) {
+                    el.style.display = 'none'; // Hide the entire section if all items are hidden
+                }
+            }
+        });
+    }
+
+    // Function to perform all hiding operations
+    function performHidingOperations() {
+        hidePaidListItems();
+        hideSpecificCategories();
+        removeEmptyCategories();
+    }
+
+    // Run the hiding operations initially on page load
+    performHidingOperations();
 
     // MutationObserver to track dynamic content loading on Prime Video
     const observer = new MutationObserver(function(mutations) {
         mutations.forEach(function(mutation) {
             if (mutation.addedNodes.length) {
-                // Check and hide new list items with paid options
-                hidePaidListItems();
+                // Run hiding operations for newly added content
+                performHidingOperations();
             }
         });
     });
