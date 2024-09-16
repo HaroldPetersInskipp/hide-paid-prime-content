@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Hide Paid Options on Amazon Prime Video
 // @namespace    https://github.com/HaroldPetersInskipp
-// @version      1.0.0
+// @version      1.1.0
 // @homepageURL  https://github.com/HaroldPetersInskipp/hide-paid-prime-content
 // @supportURL   https://github.com/HaroldPetersInskipp/hide-paid-prime-content/issues
 // @description  Hides list items on Amazon Prime Video that contain paid options (Buy, Rent, Trial).
