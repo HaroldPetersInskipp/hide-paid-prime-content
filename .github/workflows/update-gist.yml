@@ -1,0 +1,33 @@
+name: Update Gist Userscript
+
+on:
+  push:
+    paths:
+      - script.js # Trigger the workflow only when this file changes
+
+jobs:
+  update-gist:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Update Gist
+      env:
+        GIST_TOKEN: ${{ secrets.GIST_TOKEN }}
+      run: |
+        # Define variables
+        GIST_ID="9b570008ecbef304bd5a8d757d69b733"         # Replace with your Gist ID
+        FILE_NAME="hide-paid-prime-content.user.js"        # Name of the file in the Gist
+        LOCAL_FILE="script.js"                             # Path to the local file in the repo
+
+        # Fetch the content of the local file
+        FILE_CONTENT=$(cat $LOCAL_FILE)
+
+        # Update the Gist using the GitHub API
+        curl -X PATCH \
+          -H "Authorization: token $GIST_TOKEN" \
+          -H "Accept: application/vnd.github+json" \
+          -d "$(jq -n --arg filename "$FILE_NAME" --arg content "$FILE_CONTENT" '{files: {($filename): {content: $content}}}')" \
+          https://api.github.com/gists/$GIST_ID
