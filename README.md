@@ -1,5 +1,5 @@
 # hide-paid-prime-content
-Userscript to hide all paid content not accessable in Amazon Prime with your current subscriptions. For use with Tampermonkey.
+Userscript to hide all paid content not accessable in Amazon Prime Video with your current subscriptions. For use with Tampermonkey.
 
 Installation
 ------------
